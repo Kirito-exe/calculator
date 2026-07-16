@@ -15,6 +15,8 @@ function operation(a,b,oper){
             return multi(a,b);
         case "/":
             return div(a,b);
+        case "=":
+            return a;
     }
 }
 let numbers = document.querySelectorAll(".numbers");
@@ -30,9 +32,24 @@ numarr.forEach((num)=>num.addEventListener("click",function(){
 }))
 
 operarr.forEach((opr)=>opr.addEventListener("click",function(){
-    num1 = parseFloat(display.textContent);
     oper = opr.textContent;
-    display.textContent="";
+    if (num1===null){
+        num1=parseFloat(display.textContent);
+        display.textContent="";
+    }else{
+        num2=parseFloat(display.textContent);
+        num1=operation(num1,num2,oper);
+        display.textContent="";
+    }
 }))
-
-Clear.addEventListener("click", ()=> display.textContent="");
+equals.addEventListener("click",function(){
+    num2=parseInt(display.textContent);
+    num1=operation(num1,num2,oper);
+    display.textContent=num1;
+})
+Clear.addEventListener("click",function(){
+    display.textContent='';
+    num1=null;
+    num2=null;
+    oper=null;
+});
